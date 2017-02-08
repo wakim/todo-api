@@ -42,16 +42,16 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
           let!(:items_json) do
             [{
-              'id' => 1,
+              'id' => item_1.id,
               'name' => 'item 1',
               'description' => 'desc 1',
-              'user_id' => 1,
+              'user_id' => user.id,
               'done' => false },
              {
-               'id' => 2,
+               'id' => item_2.id,
                'name' => 'item 2',
                'description' => 'desc 2',
-               'user_id' => 1,
+               'user_id' => user.id,
                'done' => true }]
           end
 
@@ -82,10 +82,10 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
           let!(:items_json) do
             [{
-              'id' => 1,
+              'id' => item_1.id,
               'name' => 'item 1',
               'description' => 'desc 1',
-              'user_id' => 1,
+              'user_id' => user.id,
               'done' => false }]
           end
 
@@ -109,10 +109,10 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
       let!(:item_json) do
         {
-          'id' => 1,
+          'id' => item_1.id,
           'name' => 'item 1',
           'description' => 'desc 1',
-          'user_id' => 1,
+          'user_id' => user.id,
           'done' => false }
       end
 
@@ -289,9 +289,9 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
         context 'creating with valid parameters' do
           let!(:params) { { item: { name: 'name', description: 'description' } } }
-          let!(:item_json) do
+          let(:item_json) do
             {
-              'id' => 1,
+              'id' => Item.last.id,
               'name' => 'name',
               'description' => 'description',
               'user_id' => user.id,
@@ -398,7 +398,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           let!(:item_json) do
             {
               'user_id' => user.id,
-              'id' => 1,
+              'id' => Item.last.id,
               'name' => 'teste',
               'description' => 'teste desc',
               'done' => true }

@@ -8,7 +8,7 @@ module Api
         page = params[:page]
 
         @items = @user.items unless page.present?
-        @items = @user.items.page(page).per(params[:per] || 1) if page.present?
+        @items = @user.items.order('id asc').page(page).per((params[:per] || '1').to_i) if page.present?
 
         render json: @items, except: [:created_at, :updated_at]
       end
