@@ -36,6 +36,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec', '1.0.4'
   gem 'factory_girl_rails', '4.7.0'
+  gem 'rubocop'
 end
 
 group :development do

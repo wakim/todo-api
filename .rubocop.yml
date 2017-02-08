@@ -1,0 +1,27 @@
+AllCops:
+  Exclude:
+    - vendor/**/*
+    - log/**/*
+    - db/schema.rb
+    - bin/*
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/*
+
+Metrics/AbcSize:
+  Exclude:
+    - db/migrate/*
+
+Metrics/ParameterLists:
+  Exclude:
+    - db/seeds/**/*
+
+BlockLength:
+  Max: 70
