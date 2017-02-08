@@ -14,8 +14,10 @@ module Api
       end
 
       def index
-        @items = @user.items unless params[:page].present?
-        @items = @user.items.page(params[:page]).per(params[:per] || 1) if params[:page].present?
+        page = params[:page]
+
+        @items = @user.items unless page.present?
+        @items = @user.items.page(page).per(params[:per] || 1) if page.present?
 
         render json: @items, except: [:created_at, :updated_at]
       end

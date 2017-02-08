@@ -13,8 +13,8 @@ Rails.application.routes.draw do
         user_resources
       end
 
-      match '/:id' => 'users#show', :via => :get,
-            :constraints => { :id => 'me' }
+      match '/:id' => 'users#show', via: :get,
+            constraints: { id: 'me' }
 
       post 'sessions/authenticate', to: 'authentication#authenticate_user'
       post 'sessions/', to: 'authentication#create'

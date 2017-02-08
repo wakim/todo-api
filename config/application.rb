@@ -1,13 +1,13 @@
 require_relative 'boot'
 
-require "rails"
+require 'rails'
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_view/railtie"
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_view/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -15,13 +15,13 @@ Bundler.require(*Rails.groups)
 
 module ApiApp
   class Application < Rails::Application
-
     config.generators do |g|
       g.helper false
       g.view_specs false
       g.assets false
       g.integration_tool false
     end
+
     config.app_generators do |g|
       g.test_framework :rspec
     end

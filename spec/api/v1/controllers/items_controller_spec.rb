@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::ItemsController, type: :request do
   let!(:user) { create(:user, name: 'abc', email: 'abc@test.com', token: 'NICEULTRATOKENVALID') }
   let!(:other_user) { create(:user, name: 'abc 2', email: 'abc_2@test.com') }
-  let!(:auth_header) { { 'Authorization': "#{user.token}" } }
+  let!(:auth_header) { { 'Authorization' => user.token } }
 
   %w(me user/:user_id).each do |endpoint|
     describe "GET /#{endpoint}/items/" do
@@ -42,19 +42,17 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
           let!(:items_json) do
             [{
-                 'id' => 1,
-                 'name' => 'item 1',
-                 'description' => 'desc 1',
-                 'user_id' => 1,
-                 'done' => false
-             },
+              'id' => 1,
+              'name' => 'item 1',
+              'description' => 'desc 1',
+              'user_id' => 1,
+              'done' => false },
              {
-                 'id' => 2,
-                 'name' => 'item 2',
-                 'description' => 'desc 2',
-                 'user_id' => 1,
-                 'done' => true
-             }]
+               'id' => 2,
+               'name' => 'item 2',
+               'description' => 'desc 2',
+               'user_id' => 1,
+               'done' => true }]
           end
 
           before do
@@ -84,12 +82,11 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
           let!(:items_json) do
             [{
-                 'id' => 1,
-                 'name' => 'item 1',
-                 'description' => 'desc 1',
-                 'user_id' => 1,
-                 'done' => false
-             }]
+              'id' => 1,
+              'name' => 'item 1',
+              'description' => 'desc 1',
+              'user_id' => 1,
+              'done' => false }]
           end
 
           before do
@@ -112,12 +109,11 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
       let!(:item_json) do
         {
-             'id' => 1,
-             'name' => 'item 1',
-             'description' => 'desc 1',
-             'user_id' => 1,
-             'done' => false
-        }
+          'id' => 1,
+          'name' => 'item 1',
+          'description' => 'desc 1',
+          'user_id' => 1,
+          'done' => false }
       end
 
       if endpoint == 'me'
@@ -251,7 +247,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           context 'missing name and description' do
-            let!(:params) { { } }
+            let!(:params) { {} }
 
             if endpoint == 'me'
               let!(:do_action) { post '/api/v1/me/items/', headers: auth_header, params: params }
@@ -295,12 +291,11 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           let!(:params) { { item: { name: 'name', description: 'description' } } }
           let!(:item_json) do
             {
-                'id' => 1,
-                'name' => 'name',
-                'description' => 'description',
-                'user_id' => user.id,
-                'done' => false
-            }
+              'id' => 1,
+              'name' => 'name',
+              'description' => 'description',
+              'user_id' => user.id,
+              'done' => false }
           end
 
           if endpoint == 'me'
@@ -339,7 +334,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
       context 'authenticated' do
         context 'invalid item' do
-          let!(:params) { { item: { } } }
+          let!(:params) { { item: {} } }
 
           if endpoint == 'me'
             let!(:do_action) { patch '/api/v1/me/items/10', params: params, headers: auth_header }
@@ -368,7 +363,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
         context 'with missing params' do
           let!(:item) { create(:item, user_id: user.id) }
-          let!(:params) { { item: { } } }
+          let!(:params) { { item: {} } }
 
           if endpoint == 'me'
             let!(:do_action) { patch "/api/v1/me/items/#{item.id}", params: params, headers: auth_header }
@@ -383,16 +378,15 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
         context 'with valid params' do
           let!(:item) { create(:item, user_id: user.id) }
-          let!(:params) { { item: { name: 'teste', description: 'teste desc', done: true} } }
+          let!(:params) { { item: { name: 'teste', description: 'teste desc', done: true } } }
 
           let!(:item_json) do
             {
-                'user_id' => user.id,
-                'id' => 1,
-                'name' => 'teste',
-                'description' => 'teste desc',
-                'done' => true
-            }
+              'user_id' => user.id,
+              'id' => 1,
+              'name' => 'teste',
+              'description' => 'teste desc',
+              'done' => true }
           end
 
           if endpoint == 'me'
@@ -433,7 +427,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
 
       context 'authenticated' do
         context 'invalid item' do
-          let!(:params) { { item: { } } }
+          let!(:params) { { item: {} } }
 
           if endpoint == 'me'
             let!(:do_action) { delete '/api/v1/me/items/100', headers: auth_header }

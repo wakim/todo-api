@@ -3,14 +3,13 @@ require 'rails_helper'
 RSpec.describe Api::V1::UsersController, type: :request do
   describe 'GET /api/v1/users/:id' do
     let!(:user) { create(:user, name: 'abc', email: 'abc@test.com', token: 'NICEULTRATOKENVALID') }
-    let!(:auth_header) { { 'Authorization': "#{user.token}" } }
+    let!(:auth_header) { { 'Authorization' => user.token } }
     let(:do_action) { get "/api/v1/users/#{user.id}", headers: auth_header }
     let!(:user_json) do
       {
-          'id' => user.id,
-          'name' => user.name,
-          'email' => user.email
-      }
+        'id' => user.id,
+        'name' => user.name,
+        'email' => user.email }
     end
 
     context 'unauthenticated' do
