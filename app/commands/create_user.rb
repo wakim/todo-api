@@ -41,6 +41,6 @@ class CreateUser
   end
 
   def create_token
-    JsonWebToken.encode(token: "#{Time.zone.now}#{@email}")
+    ::JsonWebToken.encode(token: "#{Time.zone.now}#{@email}")
   end
 end
