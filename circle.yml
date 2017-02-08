@@ -1,0 +1,5 @@
+test:
+  pre:
+    - bundle exec rubocop
+  override:
+    - coverage=on bundle exec rspec spec
