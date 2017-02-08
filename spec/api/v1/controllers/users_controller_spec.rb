@@ -16,7 +16,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       let!(:do_action) { get '/api/v1/users/1' }
 
       it 'return 401 when showing user' do
-        expect(response).to have_http_status 401
+        expect(response).to have_http_status :unauthorized
       end
     end
 
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
 
       it 'return 200' do
-        expect(response).to have_http_status 200
+        expect(response).to have_http_status :ok
       end
 
       it 'render user json' do
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       let!(:do_action) { get '/api/v1/me', headers: auth_header }
 
       it 'return 200' do
-        expect(response).to have_http_status 200
+        expect(response).to have_http_status :ok
       end
 
       it 'render user json' do
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
       let!(:do_action) { get '/api/v1/users/2', headers: auth_header }
 
       it 'return 404' do
-        expect(response).to have_http_status 404
+        expect(response).to have_http_status :unauthorized
       end
     end
   end

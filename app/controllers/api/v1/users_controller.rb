@@ -5,7 +5,7 @@ module Api
         id = params[:id]
 
         if id != 'me' && id.to_i != @current_user.id
-          render status: 404
+          render status: :unauthorized
         else
           render json: @current_user.attributes.slice('id', 'name', 'email')
         end

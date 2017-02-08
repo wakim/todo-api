@@ -26,7 +26,7 @@ module Api
           render json: @item.errors, status: :unprocessable_entity
         end
       rescue ActionController::ParameterMissing
-        render status: 422
+        render status: :unprocessable_entity
       end
 
       def update
@@ -36,7 +36,7 @@ module Api
           render json: @item.errors, status: :unprocessable_entity
         end
       rescue ActionController::ParameterMissing
-        render status: 422
+        render status: :unprocessable_entity
       end
 
       def destroy
@@ -48,7 +48,7 @@ module Api
       def set_item
         @item = @user.items.find(params[:id])
       rescue ActiveRecord::RecordNotFound
-        render status: 404
+        render status: :not_found
       end
 
       def item_params
@@ -59,7 +59,7 @@ module Api
         if params[:user_id] == 'me' && current_user
           @user = current_user
         elsif params[:user_id].to_i != @current_user.id
-          render json: { error: 'Not Authorized' }, status: 401
+          render json: { error: 'Not Authorized' }, status: :unauthorized
         else
           @user = current_user
         end

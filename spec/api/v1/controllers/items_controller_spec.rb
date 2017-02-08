@@ -21,7 +21,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
         end
 
         it 'return 401' do
-          expect(response).to have_http_status 401
+          expect(response).to have_http_status :unauthorized
         end
       end
 
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
             let!(:do_other_user_action) { get '/api/v1/users/2/items', headers: auth_header }
 
             it 'return 401' do
-              expect(response).to have_http_status 401
+              expect(response).to have_http_status :unauthorized
             end
           end
         end
@@ -60,7 +60,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 200' do
-            expect(response).to have_http_status 200
+            expect(response).to have_http_status :ok
           end
 
           it 'render items json' do
@@ -94,7 +94,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 200' do
-            expect(response).to have_http_status 200
+            expect(response).to have_http_status :ok
           end
 
           it 'render items json' do
@@ -130,7 +130,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
         end
 
         it 'return 401' do
-          expect(response).to have_http_status 401
+          expect(response).to have_http_status :unauthorized
         end
       end
 
@@ -143,7 +143,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
             let!(:do_action) { get "/api/v1/users/#{other_user.id}/items/#{other_item.id}", headers: auth_header }
 
             it 'return 401' do
-              expect(response).to have_http_status 401
+              expect(response).to have_http_status :unauthorized
             end
           end
         end
@@ -159,7 +159,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 404' do
-            expect(response).to have_http_status 404
+            expect(response).to have_http_status :not_found
           end
         end
 
@@ -171,7 +171,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 404' do
-            expect(response).to have_http_status 404
+            expect(response).to have_http_status :not_found
           end
         end
 
@@ -183,7 +183,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 200' do
-            expect(response).to have_http_status 200
+            expect(response).to have_http_status :ok
           end
 
           it 'render item json' do
@@ -212,7 +212,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
         end
 
         it 'return 401' do
-          expect(response).to have_http_status 401
+          expect(response).to have_http_status :unauthorized
         end
       end
 
@@ -228,7 +228,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
             end
 
             it 'return 422' do
-              expect(response).to have_http_status 422
+              expect(response).to have_http_status :unprocessable_entity
             end
           end
 
@@ -242,7 +242,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
             end
 
             it 'return 422' do
-              expect(response).to have_http_status 422
+              expect(response).to have_http_status :unprocessable_entity
             end
           end
 
@@ -256,7 +256,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
             end
 
             it 'return 422' do
-              expect(response).to have_http_status 422
+              expect(response).to have_http_status :unprocessable_entity
             end
           end
 
@@ -270,7 +270,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
             end
 
             it 'return 422' do
-              expect(response).to have_http_status 422
+              expect(response).to have_http_status :unprocessable_entity
             end
           end
         end
@@ -282,7 +282,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
             let!(:do_action) { post '/api/v1/users/2/items/', headers: auth_header, params: params }
 
             it 'return 401' do
-              expect(response).to have_http_status 401
+              expect(response).to have_http_status :unauthorized
             end
           end
         end
@@ -305,7 +305,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 201' do
-            expect(response).to have_http_status 201
+            expect(response).to have_http_status :created
           end
 
           it 'render recently created item' do
@@ -328,7 +328,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
         end
 
         it 'return 401' do
-          expect(response).to have_http_status 401
+          expect(response).to have_http_status :unauthorized
         end
       end
 
@@ -343,7 +343,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 404' do
-            expect(response).to have_http_status 404
+            expect(response).to have_http_status :not_found
           end
         end
 
@@ -355,8 +355,8 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           if endpoint != 'me'
             let!(:do_action) { patch "/api/v1/users/#{other_user.id}/items/#{item.id}", params: params, headers: auth_header }
 
-            it 'return 404' do
-              expect(response).to have_http_status 401
+            it 'return 401' do
+              expect(response).to have_http_status :unauthorized
             end
           end
         end
@@ -372,7 +372,22 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 422' do
-            expect(response).to have_http_status 422
+            expect(response).to have_http_status :unprocessable_entity
+          end
+        end
+
+        context 'with empty params' do
+          let!(:item) { create(:item, user_id: user.id) }
+          let!(:params) { { item: { name: '' } } }
+
+          if endpoint == 'me'
+            let!(:do_action) { patch "/api/v1/me/items/#{item.id}", params: params, headers: auth_header }
+          else
+            let!(:do_action) { patch "/api/v1/users/#{user.id}/items/#{item.id}", params: params, headers: auth_header }
+          end
+
+          it 'return 422' do
+            expect(response).to have_http_status :unprocessable_entity
           end
         end
 
@@ -396,7 +411,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 200' do
-            expect(response).to have_http_status 200
+            expect(response).to have_http_status :ok
           end
 
           it 'render recently created item' do
@@ -421,7 +436,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
         end
 
         it 'return 401' do
-          expect(response).to have_http_status 401
+          expect(response).to have_http_status :unauthorized
         end
       end
 
@@ -436,7 +451,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 404' do
-            expect(response).to have_http_status 404
+            expect(response).to have_http_status :not_found
           end
         end
 
@@ -448,7 +463,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
             let!(:do_action) { delete "/api/v1/users/#{user.id}/items/#{item.id}", headers: auth_header }
 
             it 'return 404' do
-              expect(response).to have_http_status 404
+              expect(response).to have_http_status :not_found
             end
           end
         end
@@ -463,7 +478,7 @@ RSpec.describe Api::V1::ItemsController, type: :request do
           end
 
           it 'return 204' do
-            expect(response).to have_http_status 204
+            expect(response).to have_http_status :no_content
           end
         end
       end

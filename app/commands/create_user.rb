@@ -36,7 +36,7 @@ class CreateUser
     if user.save
       user
     else
-      error.add(:user_creation, 'Unknown error') && nil
+      errors.add(:user_creation, user.errors) && nil
     end
   end
 

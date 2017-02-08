@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :user do
     email 'a@a.com'
     name 'a'
+    password 'secret'
     password_digest BCrypt::Password.create('secret')
     token 'abc'
   end
