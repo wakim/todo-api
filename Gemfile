@@ -22,7 +22,6 @@ gem 'annotate', '~> 2.7.0'
 gem 'jwt'
 gem 'simple_command'
 gem 'kaminari', '~> 1.0'
-gem 'swagger-docs'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

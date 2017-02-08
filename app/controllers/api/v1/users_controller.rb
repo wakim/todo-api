@@ -1,12 +1,6 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      swagger_controller :users, 'Users'
-
-      swagger_api :show do
-        summary 'Return user info'
-      end
-
       def show
         id = params[:id]
 

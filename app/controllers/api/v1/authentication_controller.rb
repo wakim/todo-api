@@ -1,8 +1,6 @@
 class AuthenticationController < ApplicationController
   skip_before_action :authenticate_request
 
-  swagger_controller :authentication, 'Authentication'
-
   def authenticate_user
     command = AuthenticateUser.call(params[:email], params[:password])
 
