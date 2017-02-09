@@ -20,8 +20,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'annotate', '~> 2.7.0'
 gem 'jwt'
-gem 'simple_command'
 gem 'kaminari', '~> 1.0'
+gem 'simple_command'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -32,10 +32,10 @@ gem 'kaminari', '~> 1.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'rspec-rails'
-  gem 'spring-commands-rspec', '1.0.4'
   gem 'factory_girl_rails', '4.7.0'
+  gem 'rspec-rails'
   gem 'rubocop'
+  gem 'spring-commands-rspec', '1.0.4'
 end
 
 group :development do
@@ -46,9 +46,9 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'simplecov'
-  gem 'database_cleaner'
   gem 'rails-controller-testing'
 end
 
