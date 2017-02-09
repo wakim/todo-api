@@ -1,0 +1,10 @@
+engines:
+  rubocop:
+    enabled: true
+    checks:
+      Rubocop/Style/FrozenStringLiteralComment:
+        enabled: false
+exclude_paths:
+- config/
+- db/
+- spec/
